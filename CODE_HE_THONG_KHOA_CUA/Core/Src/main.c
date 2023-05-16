@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "KEYPAD.h" // Thư viện đọc phím nhấn bàn phím ma trận
+#include "KEYPAD.h" // Thư viện đ�?c phím nhấn bàn phím ma trận
 #include "CLCD_I2C.h" // Thư viện màn hình LCD giao tiếp I2C
 #include "String.h"
 /* USER CODE END Includes */
@@ -46,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
 
-SPI_HandleTypeDef hspi2;
+SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart6;
@@ -61,7 +61,7 @@ UART_HandleTypeDef huart6;
  {'*','0','#','D'}
  };
 
-// Biến lưu key đọc được
+// Biến lưu key đ�?c được
 unsigned char u8_KEYPAD_key;
 // Khai báo LCD
 CLCD_I2C_Name LCD1;
@@ -81,8 +81,8 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_SPI2_Init(void);
 static void MX_USART6_UART_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -91,11 +91,11 @@ static void MX_USART6_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void RC522_UID_Check(void)
 {
-  // Mô phỏng trên Proteus
+  // Mô ph�?ng trên Proteus
   status = HAL_UART_Receive(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
   while (status != HAL_OK)
   {
-    // Chờ chuỗi ghi vào buffer
+    // Ch�? chuỗi ghi vào buffer
   }
   HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
   HAL_UART_Transmit(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
@@ -142,8 +142,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_I2C1_Init();
-  MX_SPI2_Init();
   MX_USART6_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   // Khởi tạo Keypad 4x4
    KEYPAD4X4_Init(&KeyPad, KEYMAP,
@@ -156,7 +156,7 @@ int main(void)
                            ROW3_GPIO_Port, ROW3_Pin,
                            ROW4_GPIO_Port, ROW4_Pin);
   // Khởi tạo LCD
-  // Với mô phỏng Proteus -> địa chỉ 0x40
+  // Với mô ph�?ng Proteus -> địa chỉ 0x40
   // Với phần cứng thực tế -> địa chỉ 0x4E
    CLCD_I2C_Init(&LCD1,&hi2c1,0x40,16,2);
 
@@ -170,57 +170,58 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 	  u8_KEYPAD_key = KEYPAD4X4_Readkey(&KeyPad);
-	  HAL_Delay(20);
-    //RC522_UID_Check();
-    if (u8_KEYPAD_key != 0)
-    {
-      CLCD_I2C_SetCursor(&LCD1, inputIndex, 1);
-    	CLCD_I2C_WriteChar(&LCD1, u8_KEYPAD_key);
-      if (u8_KEYPAD_key == 'D')
-      {
-    	inputIndex = 0;
-      	CLCD_I2C_Clear(&LCD1);
-      	CLCD_I2C_SetCursor(&LCD1, 0, 0);
-      	CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-      	CLCD_I2C_SetCursor(&LCD1, 0, 1);
-      }
-      else if (u8_KEYPAD_key == '*')
-      {
-    	  inputIndex = 0;
-    	  if(strcmp(input_pass, password) == 0)
-    	  {
-    		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
-    		 CLCD_I2C_WriteString(&LCD1, "Mat khau dung!");
-    		 HAL_Delay(2000);
-		     CLCD_I2C_Clear(&LCD1);
-		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
-		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
-    	  }
-    	  else
-    	  {
-    		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
-    		 CLCD_I2C_WriteString(&LCD1, "Mat khau sai!");
-    		 HAL_Delay(2000);
-		     CLCD_I2C_Clear(&LCD1);
-		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
-		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
-    	  }
-      }
-      else
-      {
-    	  input_pass[inputIndex] = u8_KEYPAD_key;
-    	  inputIndex++;
-      }
-      //CLCD_I2C_WriteString(&LCD1, input_pass);
-    }
+	  	  HAL_Delay(20);
+	      //RC522_UID_Check();
+	      if (u8_KEYPAD_key != 0)
+	      {
+	        CLCD_I2C_SetCursor(&LCD1, inputIndex, 1);
+	      	CLCD_I2C_WriteChar(&LCD1, u8_KEYPAD_key);
+	        if (u8_KEYPAD_key == 'D')
+	        {
+	      	inputIndex = 0;
+	        	CLCD_I2C_Clear(&LCD1);
+	        	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	        	CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
+	        	CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	        }
+	        else if (u8_KEYPAD_key == '*')
+	        {
+	      	  inputIndex = 0;
+	      	  if(strcmp(input_pass, password) == 0)
+	      	  {
+	      		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	      		 CLCD_I2C_WriteString(&LCD1, "Mat khau dung!");
+	      		 HAL_Delay(2000);
+	  		     CLCD_I2C_Clear(&LCD1);
+	  		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	  		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
+	  		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	      	  }
+	      	  else
+	      	  {
+	      		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	      		 CLCD_I2C_WriteString(&LCD1, "Mat khau sai!");
+	      		 HAL_Delay(2000);
+	  		     CLCD_I2C_Clear(&LCD1);
+	  		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	  		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
+	  		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	      	  }
+	        }
+	        else
+	        {
+	      	  input_pass[inputIndex] = u8_KEYPAD_key;
+	      	  inputIndex++;
+	        }
+	        //CLCD_I2C_WriteString(&LCD1, input_pass);
+	      }
 
 
-    //HAL_UART_Transmit(&huart2, &u8_KEYPAD_key, sizeof(u8_KEYPAD_key), 100);
-	  HAL_Delay(50);
+	      //HAL_UART_Transmit(&huart2, &u8_KEYPAD_key, sizeof(u8_KEYPAD_key), 100);
+	  	  HAL_Delay(50);
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -302,40 +303,40 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief SPI2 Initialization Function
+  * @brief SPI1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_SPI2_Init(void)
+static void MX_SPI1_Init(void)
 {
 
-  /* USER CODE BEGIN SPI2_Init 0 */
+  /* USER CODE BEGIN SPI1_Init 0 */
 
-  /* USER CODE END SPI2_Init 0 */
+  /* USER CODE END SPI1_Init 0 */
 
-  /* USER CODE BEGIN SPI2_Init 1 */
+  /* USER CODE BEGIN SPI1_Init 1 */
 
-  /* USER CODE END SPI2_Init 1 */
-  /* SPI2 parameter configuration*/
-  hspi2.Instance = SPI2;
-  hspi2.Init.Mode = SPI_MODE_MASTER;
-  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi2.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN SPI2_Init 2 */
+  /* USER CODE BEGIN SPI1_Init 2 */
 
-  /* USER CODE END SPI2_Init 2 */
+  /* USER CODE END SPI1_Init 2 */
 
 }
 
@@ -423,10 +424,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_Pin|COL1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(COL4_GPIO_Port, COL4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, COL2_Pin|COL3_Pin|COL4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, COL3_Pin|COL1_Pin|COL2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -434,37 +435,37 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin COL1_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|COL1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  /*Configure GPIO pin : ROW4_Pin */
+  GPIO_InitStruct.Pin = ROW4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(ROW4_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : ROW1_Pin ROW4_Pin */
-  GPIO_InitStruct.Pin = ROW1_Pin|ROW4_Pin;
+  /*Configure GPIO pin : ROW1_Pin */
+  GPIO_InitStruct.Pin = ROW1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(ROW1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ROW3_Pin ROW2_Pin */
+  GPIO_InitStruct.Pin = ROW3_Pin|ROW2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : COL2_Pin COL3_Pin COL4_Pin */
-  GPIO_InitStruct.Pin = COL2_Pin|COL3_Pin|COL4_Pin;
+  /*Configure GPIO pin : COL4_Pin */
+  GPIO_InitStruct.Pin = COL4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(COL4_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : COL3_Pin COL1_Pin COL2_Pin */
+  GPIO_InitStruct.Pin = COL3_Pin|COL1_Pin|COL2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : ROW3_Pin */
-  GPIO_InitStruct.Pin = ROW3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(ROW3_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : ROW2_Pin */
-  GPIO_InitStruct.Pin = ROW2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(ROW2_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
