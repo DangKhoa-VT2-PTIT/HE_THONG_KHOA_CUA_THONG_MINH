@@ -1,0 +1,13 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+activeLaunchTarget=null\:---
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:CODE_HE_THONG_KHOA_CUA_1 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NUCLEO-F401RE_I2C_ADDR_SCANNER,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:CODE_HE_THONG_KHOA_CUA Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NUCLEO_GPIO_Toggle_LED Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NUCLEO_GPIO_Toggle_BUZZER Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:KITLumi_GPIO_Toggle_LED Debug
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:CODE_HE_THONG_KHOA_CUA\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:CODE_HE_THONG_KHOA_CUA_1\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:CODE_HE_THONG_KHOA_CUA_1\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:NUCLEO_GPIO_Toggle_LED\ Debug/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:CODE_HE_THONG_KHOA_CUA\ Release/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:CODE_HE_THONG_KHOA_CUA\ Release/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:CODE_HE_THONG_KHOA_CUA_1\ Debug\ (1)/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

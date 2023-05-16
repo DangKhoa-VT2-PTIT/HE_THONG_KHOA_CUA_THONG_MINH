@@ -1,0 +1,4 @@
+../Core/Src/KEYPAD.c:27:13:KEYPAD_Delay	16	static
+../Core/Src/KEYPAD.c:31:6:KEYPAD4X4_Init	32	static
+../Core/Src/KEYPAD.c:72:6:KEYPAD4X4_Readkey	24	static
+../Core/Src/KEYPAD.c:95:6:KEYPAD4x4_Config	24	static
