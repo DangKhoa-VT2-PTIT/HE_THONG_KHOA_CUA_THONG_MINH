@@ -62,6 +62,7 @@ char KEYMAP[NUMROWS][NUMCOLS] = {
 int item = 0;
 char input[6];
 int equal = 1;
+int count  = 0;
 CLCD_I2C_Name LCD1;
 
 /* USER CODE END PV */
@@ -125,21 +126,6 @@ int main(void)
   CLCD_I2C_SetCursor(&LCD1, 0, 1);
   CLCD_I2C_WriteString(&LCD1,"HELLO");
 
-//  uint8_t txt1[30] = " ";
-//   uint8_t ack;
-//    char txt = 'k';
-//    HAL_UART_Transmit(&huart6, &txt, sizeof(txt), 0xFFFF);
-//    for(uint8_t address=0; address<128; address++)
-//    {
-//  	  ack = HAL_I2C_IsDeviceReady(&hi2c1, address<<1, 3, 6);
-//  	  HAL_UART_Transmit(&huart6, &ack, sizeof(ack), 0xFFFF);
-//  	  HAL_Delay(10);
-//  	  if(ack == HAL_OK)
-//  	  {
-//  		  sprintf((char*)txt1, "Dia chi I2C 0x%X\n\r", address<<1);
-//  		  HAL_UART_Transmit(&huart6, &txt1, sizeof(txt1), 0xffff);
-//  	  }
-//    }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -153,7 +139,7 @@ int main(void)
 		  	  HAL_UART_Transmit(&huart6, (uint8_t*)&Key, 1, 100);
 	  	  }
 	  HAL_Delay(50);
-
+//bat dau nhap mat khau khi keypad duoc an
 	  if (Key != NULL)
 	  {
 		  //in ra lcd ky tu '*' cho moi so nhap tu keypad
@@ -162,11 +148,11 @@ int main(void)
 		  CLCD_I2C_SetCursor(&LCD1, item, 2);
 		  CLCD_I2C_WriteString(&LCD1, '*');
 		  item++;
-
+//bat dau xet mat khau
+		  //khi day so nhap vao co do dai bang 6
 		  if (item == 6)
 		  {
-		  int count  = 0;
-
+//xet mat khau khi so lan nhap sai count nho hon 3
 		  	while (count < 3)
 		  	{
 //  			scanf("%s", Key);
@@ -182,6 +168,7 @@ int main(void)
 
 		  				switch (count)
 		  				{
+			//so lan sai nho hon 3
 		  				case 1:
 		  					CLCD_I2C_SetCursor(&LCD1, 0, 1);
 		  					CLCD_I2C_WriteString(&LCD1,"1");
@@ -190,6 +177,7 @@ int main(void)
 		  					CLCD_I2C_SetCursor(&LCD1, 0, 1);
 		  					CLCD_I2C_WriteString(&LCD1,"2");
 		  					break;
+			//so lan sai bang 3
 		  				case 3:
 		  					CLCD_I2C_SetCursor(&LCD1, 0, 0);
 		  					CLCD_I2C_WriteString(&LCD1,"Sai 3 lan");
