@@ -57,6 +57,8 @@ UART_HandleTypeDef huart6;
 MFRC522_Name mfrc522;
 uint8_t str[MFRC522_MAX_LEN];
 uint8_t RC522_TagType;
+uint8_t Ar1_u8_UID_Buffer1[MFRC522_MAX_LEN] = {0x49, 0xAE, 0XA3, 0XC2, 0X86}; // Thẻ 1
+uint8_t Ar1_u8_UID_Buffer2[MFRC522_MAX_LEN] = {0x1A, 0xE1, 0X80, 0X17, 0X6C}; // Thẻ 2
 unsigned char Ar1_uc_UID_Buffer[8] = {'1', '2', '3', '3', '4', 'A', '5', 'F'};
 unsigned char Ar1_uc_UID_InputBuffer[8];
 
@@ -71,7 +73,8 @@ unsigned char Ar1_uc_UID_InputBuffer[8];
 // Biến lưu key đọc được
 unsigned char u8_KEYPAD_key;
 // Khai báo LCD
-CLCD_I2C_Name LCD1;
+CLCD_I2C_Name LCD;
+char LCD_str[100];
 
 // 
 unsigned char password[6] = {'1','2','3','A','B','C'};
@@ -97,26 +100,56 @@ static void MX_SPI1_Init(void);
 void RC522_UID_Check(void)
 {
   // ========================================= Mô phỏng trên Proteus ========================================= //
-  status = HAL_UART_Receive(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
-  while (status != HAL_OK)
-  {
-    // Chờ chuỗi ghi vào buffer
-  }
-  HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
-  HAL_UART_Transmit(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
-  if (strcmp(Ar1_uc_UID_Buffer, Ar1_uc_UID_InputBuffer) == 0)
-  {
-    CLCD_I2C_SetCursor(&LCD1, 0, 1);
-		CLCD_I2C_WriteString(&LCD1,"The tu Oke!");
-  }
-  else
-  {
-    CLCD_I2C_SetCursor(&LCD1, 0, 1);
-		CLCD_I2C_WriteString(&LCD1,"The tu sai!");
-  }
+  // status = HAL_UART_Receive(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
+  // while (status != HAL_OK)
+  // {
+  //   // Chờ chuỗi ghi vào buffer
+  // }
+  // HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
+  // HAL_UART_Transmit(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
+  // if (strcmp(Ar1_uc_UID_Buffer, Ar1_uc_UID_InputBuffer) == 0)
+  // {
+  //   CLCD_I2C_SetCursor(&LCD, 0, 1);
+	// 	CLCD_I2C_WriteString(&LCD,"The tu Oke!");
+  // }
+  // else
+  // {
+  //   CLCD_I2C_SetCursor(&LCD, 0, 1);
+	// 	CLCD_I2C_WriteString(&LCD,"The tu sai!");
+  // }
 
   // ========================================= Chạy trên phần cứng ========================================= //
+  if(!MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType))
+    {
+      if(!MFRC522_Anticoll(&mfrc522, str))
+      {
+        sprintf(LCD_str, "ID: 0x%02X%02X%02X%02X%02X", str[0], str[1], str[2], str[3], str[4]);
+        CLCD_I2C_SetCursor(&LCD, 0, 1);
+        CLCD_I2C_WriteString(&LCD, LCD_str);
+        HAL_Delay(1000);
+        CLCD_I2C_Clear(&LCD);
 
+        if( str[0] == Ar1_u8_UID_Buffer1[0]&&
+            str[1] == Ar1_u8_UID_Buffer1[1]&&
+            str[2] == Ar1_u8_UID_Buffer1[2]&&
+            str[3] == Ar1_u8_UID_Buffer1[3]&&
+            str[4] == Ar1_u8_UID_Buffer1[4])
+            {
+              CLCD_I2C_SetCursor(&LCD, 0, 1);
+              CLCD_I2C_WriteString(&LCD, "The 1");
+            }
+
+        if( str[0] == Ar1_u8_UID_Buffer2[0]&&
+            str[1] == Ar1_u8_UID_Buffer2[1]&&
+            str[2] == Ar1_u8_UID_Buffer2[2]&&
+            str[3] == Ar1_u8_UID_Buffer2[3]&&
+            str[4] == Ar1_u8_UID_Buffer2[4])
+            {
+              CLCD_I2C_SetCursor(&LCD, 0, 1);
+              CLCD_I2C_WriteString(&LCD, "The 2");
+            }
+      }
+    }
 }
 void KEYPAD_CheckPassword(void)
 {
@@ -125,38 +158,38 @@ void KEYPAD_CheckPassword(void)
 	      //RC522_UID_Check();
 	      if (u8_KEYPAD_key != 0)
 	      {
-	        CLCD_I2C_SetCursor(&LCD1, inputIndex, 1);
-	      	CLCD_I2C_WriteChar(&LCD1, u8_KEYPAD_key);
+	        CLCD_I2C_SetCursor(&LCD, inputIndex, 1);
+	      	CLCD_I2C_WriteChar(&LCD, u8_KEYPAD_key);
 	        if (u8_KEYPAD_key == 'D')
 	        {
 	      	inputIndex = 0;
-	        	CLCD_I2C_Clear(&LCD1);
-	        	CLCD_I2C_SetCursor(&LCD1, 0, 0);
-	        	CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-	        	CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	        	CLCD_I2C_Clear(&LCD);
+	        	CLCD_I2C_SetCursor(&LCD, 0, 0);
+	        	CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+	        	CLCD_I2C_SetCursor(&LCD, 0, 1);
 	        }
 	        else if (u8_KEYPAD_key == '*')
 	        {
 	      	  inputIndex = 0;
 	      	  if(strcmp(input_pass, password) == 0)
 	      	  {
-	      		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
-	      		 CLCD_I2C_WriteString(&LCD1, "Mat khau dung!");
+	      		 CLCD_I2C_SetCursor(&LCD, 0, 1);
+	      		 CLCD_I2C_WriteString(&LCD, "Mat khau dung!");
 	      		 HAL_Delay(2000);
-	  		     CLCD_I2C_Clear(&LCD1);
-	  		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
-	  		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-	  		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	  		     CLCD_I2C_Clear(&LCD);
+	  		     CLCD_I2C_SetCursor(&LCD, 0, 0);
+	  		     CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+	  		     CLCD_I2C_SetCursor(&LCD, 0, 1);
 	      	  }
 	      	  else
 	      	  {
-	      		 CLCD_I2C_SetCursor(&LCD1, 0, 1);
-	      		 CLCD_I2C_WriteString(&LCD1, "Mat khau sai!");
+	      		 CLCD_I2C_SetCursor(&LCD, 0, 1);
+	      		 CLCD_I2C_WriteString(&LCD, "Mat khau sai!");
 	      		 HAL_Delay(2000);
-	  		     CLCD_I2C_Clear(&LCD1);
-	  		     CLCD_I2C_SetCursor(&LCD1, 0, 0);
-	  		     CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-	  		     CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	  		     CLCD_I2C_Clear(&LCD);
+	  		     CLCD_I2C_SetCursor(&LCD, 0, 0);
+	  		     CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+	  		     CLCD_I2C_SetCursor(&LCD, 0, 1);
 	      	  }
 	        }
 	        else
@@ -226,26 +259,19 @@ int main(void)
   // Khởi tạo LCD
   // Với mô phỏng Proteus -> địa chỉ 0x40
   // Với phần cứng thực tế -> địa chỉ 0x4E
-   CLCD_I2C_Init(&LCD1,&hi2c1,0x4E,16,2);
+   CLCD_I2C_Init(&LCD,&hi2c1,0x4E,16,2);
 
   // Test hiển thị
-  CLCD_I2C_SetCursor(&LCD1, 0, 0);
-  CLCD_I2C_WriteString(&LCD1,"Nhap mat khau:");
-  CLCD_I2C_SetCursor(&LCD1, 0, 1);
+  CLCD_I2C_SetCursor(&LCD, 0, 0);
+  CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+  CLCD_I2C_SetCursor(&LCD, 0, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(!MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType))
-    {
-      if(!MFRC522_Anticoll(&mfrc522, str))
-      {
-        CLCD_I2C_WriteString(&LCD1, RC522_TagType);
-      }
-    }
-	  
+	  RC522_UID_Check();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
