@@ -1,6 +1,8 @@
-13:02:58 **** Incremental Build of configuration Debug for project CODE_HE_THONG_KHOA_CUA ****
+03:57:44 **** Incremental Build of configuration Debug for project CODE_HE_THONG_KHOA_CUA ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
 ../Core/Src/main.c: In function 'RC522_UID_Check':
 ../Core/Src/main.c:100:30: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
   100 |   HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
@@ -33,20 +35,20 @@ c:\st\stm32cubeide_1.11.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.external
    36 | int  strcmp (const char *, const char *);
       |                            ^~~~~~~~~~~~
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:193:18: warning: pointer targets in passing argument 1 of 'strcmp' differ in signedness [-Wpointer-sign]
-  193 |        if(strcmp(input_pass, password) == 0)
-      |                  ^~~~~~~~~~
-      |                  |
-      |                  unsigned char *
+../Core/Src/main.c:191:21: warning: pointer targets in passing argument 1 of 'strcmp' differ in signedness [-Wpointer-sign]
+  191 |           if(strcmp(input_pass, password) == 0)
+      |                     ^~~~~~~~~~
+      |                     |
+      |                     unsigned char *
 In file included from ../Core/Src/main.c:29:
 c:\st\stm32cubeide_1.11.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003\tools\arm-none-eabi\include\string.h:36:14: note: expected 'const char *' but argument is of type 'unsigned char *'
    36 | int  strcmp (const char *, const char *);
       |              ^~~~~~~~~~~~
-../Core/Src/main.c:193:30: warning: pointer targets in passing argument 2 of 'strcmp' differ in signedness [-Wpointer-sign]
-  193 |        if(strcmp(input_pass, password) == 0)
-      |                              ^~~~~~~~
-      |                              |
-      |                              unsigned char *
+../Core/Src/main.c:191:33: warning: pointer targets in passing argument 2 of 'strcmp' differ in signedness [-Wpointer-sign]
+  191 |           if(strcmp(input_pass, password) == 0)
+      |                                 ^~~~~~~~
+      |                                 |
+      |                                 unsigned char *
 In file included from ../Core/Src/main.c:29:
 c:\st\stm32cubeide_1.11.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003\tools\arm-none-eabi\include\string.h:36:28: note: expected 'const char *' but argument is of type 'unsigned char *'
    36 | int  strcmp (const char *, const char *);
@@ -57,17 +59,17 @@ Finished building target: CODE_HE_THONG_KHOA_CUA.elf
 arm-none-eabi-size   CODE_HE_THONG_KHOA_CUA.elf 
 arm-none-eabi-objdump -h -S  CODE_HE_THONG_KHOA_CUA.elf  > "CODE_HE_THONG_KHOA_CUA.list"
 arm-none-eabi-objcopy  -O ihex  CODE_HE_THONG_KHOA_CUA.elf  "CODE_HE_THONG_KHOA_CUA.hex"
-   text	   data	    bss	    dec	    hex	filename
-  12892	     44	   1988	  14924	   3a4c	CODE_HE_THONG_KHOA_CUA.elf
 arm-none-eabi-objcopy  -O binary  CODE_HE_THONG_KHOA_CUA.elf  "CODE_HE_THONG_KHOA_CUA.bin"
+   text	   data	    bss	    dec	    hex	filename
+  12828	     44	   1988	  14860	   3a0c	CODE_HE_THONG_KHOA_CUA.elf
 Finished building: default.size.stdout
  
-Finished building: CODE_HE_THONG_KHOA_CUA.hex
 Finished building: CODE_HE_THONG_KHOA_CUA.bin
+Finished building: CODE_HE_THONG_KHOA_CUA.hex
  
  
 Finished building: CODE_HE_THONG_KHOA_CUA.list
  
 
-13:02:59 Build Finished. 0 errors, 5 warnings. (took 715ms)
+03:57:47 Build Finished. 0 errors, 5 warnings. (took 2s.530ms)
 

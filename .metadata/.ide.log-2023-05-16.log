@@ -1,0 +1,224 @@
+2023-05-17 02:28:12,708 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,728 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,728 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,728 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,749 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,749 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,768 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:12,768 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:28:51,030 [INFO] Gpio:273 - dependency for GPIO [I2C1, RCC, SPI2, SYS, USART2, USART6]
+2023-05-17 02:28:52,651 [INFO] DmaTabbedPanel:205 - Cannot restore the selected Tab for DMA
+2023-05-17 02:29:02,020 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,020 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,021 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,021 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,035 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,035 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,050 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:29:02,050 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,348 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,348 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,348 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,348 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,363 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,363 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,376 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:51,376 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,022 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,022 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,022 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,022 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,035 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,035 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,047 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:34:56,047 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,726 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,726 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,726 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,726 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,739 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,739 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,753 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:35:34,753 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,820 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,820 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,821 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,821 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,832 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,832 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,844 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:37:41,845 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,979 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,979 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,980 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,980 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,990 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:42,990 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:43,004 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:45:43,004 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,713 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,713 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,713 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,713 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,723 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,723 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,733 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:35,734 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,825 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,825 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,826 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,826 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,836 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,836 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,846 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:47,847 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,939 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,939 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,939 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,939 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,948 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,948 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,957 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:46:53,957 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,014 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,015 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,015 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,015 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,024 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,024 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,034 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:47:26,034 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,195 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,195 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,195 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,195 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,205 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,205 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,215 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:26,215 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,676 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,676 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,676 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,676 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,686 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,686 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,696 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:48:50,696 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,311 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,311 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,312 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,312 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,321 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,321 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,330 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:10,330 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,872 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,872 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,872 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,872 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,882 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,883 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,893 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:13,893 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,194 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,194 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,194 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,194 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,203 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,203 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,212 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:16,212 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,013 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,013 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,013 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,013 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,022 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,022 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,031 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:24,031 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,044 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,044 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,044 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,044 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,054 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,054 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,064 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:49:29,064 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,385 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,385 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,385 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,385 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,395 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,395 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,405 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:51:20,405 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,083 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,083 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,083 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,083 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,095 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,095 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,106 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:26,107 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,695 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,695 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,695 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,695 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,708 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,708 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,721 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:36,722 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:52,752 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:52,752 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:52,752 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:52,752 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,880 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,880 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,881 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,881 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,895 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,895 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,905 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:52:55,905 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:53:00,440 [INFO] Gpio:273 - dependency for GPIO [I2C1, RCC, SPI1, SYS, USART2, USART6]
+2023-05-17 02:53:57,246 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 384580816 Bytes (549453824)
+2023-05-17 02:53:58,413 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 400835792 Bytes (549453824)
+2023-05-17 02:54:03,297 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 261414704 Bytes (549453824)
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SPI
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USART
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USART
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-05-17 02:54:03,828 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: I2C
+2023-05-17 02:54:03,830 [INFO] CodeGenerator:793 - code generatio: config db path: C:\ST\STM32CubeIDE_1.11.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.8.1.202304191431\\db\
+2023-05-17 02:54:03,838 [WARN] IP:2113 - I2C_Coeff_DF not found: check if there is a RefParameter without a condition.
+2023-05-17 02:54:03,839 [WARN] IP:2113 - Analog_Filter not found: check if there is a RefParameter without a condition.
+2023-05-17 02:54:04,190 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\license.tmp_save
+2023-05-17 02:54:04,577 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\license.tmp
+2023-05-17 02:54:04,654 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\gpio.tmp_save
+2023-05-17 02:54:04,821 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\gpio.tmp
+2023-05-17 02:54:05,072 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\stm32f4xx_it.c_save
+2023-05-17 02:54:05,226 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\stm32f4xx_it.c
+2023-05-17 02:54:05,242 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\stm32f4xx_it.h_save
+2023-05-17 02:54:05,340 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\stm32f4xx_it.h
+2023-05-17 02:54:05,381 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\stm32f4xx_hal_msp.c_save
+2023-05-17 02:54:05,534 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\stm32f4xx_hal_msp.c
+2023-05-17 02:54:05,550 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\system.tmp_save
+2023-05-17 02:54:05,609 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\MXTmpFiles\system.tmp
+2023-05-17 02:54:05,637 [INFO] CodeEngine:311 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\stm32f4xx_hal_conf.h_save
+2023-05-17 02:54:05,742 [INFO] CodeEngine:335 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\stm32f4xx_hal_conf.h
+2023-05-17 02:54:05,806 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\main.h_save
+2023-05-17 02:54:05,913 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Inc\main.h
+2023-05-17 02:54:05,935 [INFO] CodeEngine:255 - oldGeneratedFile, D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\main.c_save
+2023-05-17 02:54:06,125 [INFO] CodeEngine:279 - Generated code: D:\Dai_Hoc\Ki_2_Nam_3\THUC_TAP_CO_SO\BAI_TAP_CUOI_KY\SOURCE_CODE\CODE_HE_THONG_KHOA_CUA\Core\Src\main.c
+2023-05-17 02:54:06,797 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 208mS.
+2023-05-17 02:54:06,808 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-05-17 02:54:07,063 [INFO] ConfigFileManager:1483 - The Die is : DIE433
+2023-05-17 02:54:07,102 [INFO] ApiDbMcu:507 - Load IP Config File for FATFS
+2023-05-17 02:54:07,114 [INFO] ApiDbMcu:507 - Load IP Config File for FREERTOS
+2023-05-17 02:54:07,124 [INFO] ApiDbMcu:507 - Load IP Config File for LIBJPEG
+2023-05-17 02:54:07,140 [INFO] ApiDbMcu:507 - Load IP Config File for MBEDTLS
+2023-05-17 02:54:07,154 [INFO] ApiDbMcu:507 - Load IP Config File for USB_DEVICE
+2023-05-17 02:54:07,165 [INFO] ApiDbMcu:507 - Load IP Config File for USB_HOST
