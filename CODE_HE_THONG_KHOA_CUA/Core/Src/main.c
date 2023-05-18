@@ -45,7 +45,8 @@
 #define LCD_SHOWPASS      5u
 #define LCD_CORRECTPASS   6u
 #define LCD_WRONGPASS     7u
-#define LCD_WARNING    8u
+#define LCD_WARNING       8u
+#define LCD_BLOCK         9u
 
 /* USER CODE END PD */
 
@@ -216,6 +217,7 @@ void KEYPAD_CheckPassword(void)
 	    }
 	    if (Input_Index == 6) // Kiểm tra nếu đã nhập đủ 6 phím
 	    {
+        Input_Index = 0;
 	      if(strcmp(c_KEYPAD_InputPassword, c_KEYPAD_Password) == 0)
 	      {
           Door_Status = true;
@@ -243,10 +245,10 @@ void KEYPAD_CheckPassword(void)
           if(Wrong_Count == 3)
           {
             Wrong_Count = 0;
-            Warning_Level++;
+            Warning_Level += 1;
 
             LCD_Show(LCD_WARNING);
-            HAL_Delay(5000);
+            HAL_Delay(2000);
             switch (Warning_Level) // Kiểm tra mức cảnh báo
             {
               case 1:
@@ -256,24 +258,41 @@ void KEYPAD_CheckPassword(void)
                 LCD_Show(LCD_PASSHOME);
                 break;
               case 2:
-                HAL_UART_Transmit(&huart2, Warning_Level1, sizeof(Warning_Level1), 0xff);
+                HAL_UART_Transmit(&huart6, Warning_Level1, sizeof(Warning_Level1), 0xff);
                 Buzzer_On();
                 HAL_Delay(5000);
                 Buzzer_Off();
                 LCD_Show(LCD_PASSHOME);
                 break;
               case 3:
-                HAL_UART_Transmit(&huart2, Warning_Level2, sizeof(Warning_Level2), 0xff);
+                HAL_UART_Transmit(&huart6, Warning_Level2, sizeof(Warning_Level2), 0xff);
                 Buzzer_On();
                 HAL_Delay(7000);
                 Buzzer_Off();
-                LCD_Show(LCD_PASSHOME);
-                Warning_Level = 0;
+                LCD_Show(LCD_BLOCK);
+                while(MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType) == MI_ERR) {}
+                if(!MFRC522_Anticoll(&mfrc522, Ar1_u8_RFID_InputCard))
+                {
+
+                  while(Ar1_u8_RFID_InputCard[0] != Ar1_u8_RFID_MasterCard[0]||
+                        Ar1_u8_RFID_InputCard[1] != Ar1_u8_RFID_MasterCard[1]||
+                        Ar1_u8_RFID_InputCard[2] != Ar1_u8_RFID_MasterCard[2]||
+                        Ar1_u8_RFID_InputCard[3] != Ar1_u8_RFID_MasterCard[3]||
+                        Ar1_u8_RFID_InputCard[4] != Ar1_u8_RFID_MasterCard[4])
+                  {
+                    LCD_Show(LCD_WRONGCARD);
+                    MFRC522_Check(&mfrc522, Ar1_u8_RFID_InputCard);
+                  }
+                  RFID_Active = true;
+                  LCD_Show(LCD_CORRECTCARD);
+                  HAL_Delay(1000);
+                  LCD_Show(LCD_PASSHOME);
+                  Warning_Level = 0;
+                }
                 break;
             }
           }
 	      }
-        Input_Index = 0;
 	    }
     }
   }
@@ -292,22 +311,22 @@ void LCD_Show(unsigned int Show_Type)
     case LCD_RFIDHOME:
       CLCD_I2C_Clear(&LCD);
       CLCD_I2C_SetCursor(&LCD, 0, 0);
-	    CLCD_I2C_WriteString(&LCD,"Nhap the tu:");
+	    CLCD_I2C_WriteString(&LCD,"Nhap the tu:    ");
       CLCD_I2C_SetCursor(&LCD, 0, 1);
       break;
     case LCD_PASSHOME:
       CLCD_I2C_Clear(&LCD);
       CLCD_I2C_SetCursor(&LCD, 0, 0);
-	    CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+	    CLCD_I2C_WriteString(&LCD,"Nhap mat khau:  ");
       CLCD_I2C_SetCursor(&LCD, 0, 1);
       break;
     case LCD_CORRECTCARD:
       CLCD_I2C_SetCursor(&LCD, 0, 1);
-      CLCD_I2C_WriteString(&LCD, "The hop le!");
+      CLCD_I2C_WriteString(&LCD, "The hop le!     ");
       break;
     case LCD_WRONGCARD:
       CLCD_I2C_SetCursor(&LCD, 0, 1);
-      CLCD_I2C_WriteString(&LCD, "The sai!");
+      CLCD_I2C_WriteString(&LCD, "The sai!        ");
       break;
     case LCD_SHOWPASS:
       CLCD_I2C_SetCursor(&LCD, Input_Index, 1);
@@ -315,18 +334,24 @@ void LCD_Show(unsigned int Show_Type)
       break;
     case LCD_CORRECTPASS:
       CLCD_I2C_SetCursor(&LCD, 0, 1);
-	    CLCD_I2C_WriteString(&LCD, "Mat khau dung!");
+	    CLCD_I2C_WriteString(&LCD, "Mat khau dung!  ");
       break;
     case LCD_WRONGPASS:
       CLCD_I2C_SetCursor(&LCD, 0, 1);
-	    CLCD_I2C_WriteString(&LCD, "Mat khau sai!");
+	    CLCD_I2C_WriteString(&LCD, "Mat khau sai!   ");
       break;
     case LCD_WARNING:
-      CLCD_I2C_Clear(&LCD);
       CLCD_I2C_SetCursor(&LCD, 0, 0);
-	    CLCD_I2C_WriteString(&LCD,"Sai 3 lan!");
+	    CLCD_I2C_WriteString(&LCD,"Sai 3 lan!      ");
       CLCD_I2C_SetCursor(&LCD, 0, 1);
-	    CLCD_I2C_WriteString(&LCD, "Khoa he thong!");
+	    CLCD_I2C_WriteString(&LCD, "Khoa he thong!  ");
+      break;
+    case LCD_BLOCK:
+      CLCD_I2C_SetCursor(&LCD, 0, 0);
+	    CLCD_I2C_WriteString(&LCD,"Khoa he thong!  ");
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+	    CLCD_I2C_WriteString(&LCD, "Nhap the master!");
+      break;
   }
 }
 
