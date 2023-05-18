@@ -24,10 +24,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "RC522.h" // Thư viện giao tiếp với module đọc/ghi thẻ từ RFID RC522
-#include "KEYPAD.h" // Thư viện đọc phím nhấn bàn phím ma trận
+#include "RC522.h" // Thư viện giao tiếp với module đ�?c/ghi thẻ từ RFID RC522
+#include "KEYPAD.h" // Thư viện đ�?c phím nhấn bàn phím ma trận
 #include "CLCD_I2C.h" // Thư viện màn hình LCD giao tiếp I2C
 #include "String.h"
+#include "stdbool.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,6 +38,15 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define LCD_RFIDHOME      1u
+#define LCD_PASSHOME      2u
+#define LCD_CORRECTCARD   3u
+#define LCD_WRONGCARD     4u
+#define LCD_SHOWPASS      5u
+#define LCD_CORRECTPASS   6u
+#define LCD_WRONGPASS     7u
+#define LCD_WARNING    8u
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -55,14 +65,17 @@ UART_HandleTypeDef huart6;
 /* USER CODE BEGIN PV */
 // Khởi tạo thẻ từ
 MFRC522_Name mfrc522;
-uint8_t str[MFRC522_MAX_LEN];
+uint8_t Ar1_u8_RFID_InputCard[MFRC522_MAX_LEN];
+const uint8_t Ar1_u8_RFID_MasterCard[MFRC522_MAX_LEN] = {0x49, 0xAE, 0XA3, 0XC2, 0X86}; // Thẻ master
+const uint8_t Ar1_u8_RFID_Card1[MFRC522_MAX_LEN] = {0x1A, 0xE1, 0X80, 0X17, 0X61}; // Thẻ slave 1
 uint8_t RC522_TagType;
-uint8_t Ar1_u8_UID_Buffer1[MFRC522_MAX_LEN] = {0x49, 0xAE, 0XA3, 0XC2, 0X86}; // Thẻ 1
-uint8_t Ar1_u8_UID_Buffer2[MFRC522_MAX_LEN] = {0x1A, 0xE1, 0X80, 0X17, 0X6C}; // Thẻ 2
-unsigned char Ar1_uc_UID_Buffer[8] = {'1', '2', '3', '3', '4', 'A', '5', 'F'};
-unsigned char Ar1_uc_UID_InputBuffer[8];
 
-// Khởi tạo biến lưu Keypad và keymap
+// Mô ph�?ng thẻ từ
+// char Ar1_c_SIM_InputCard[10];
+// const char Ar1_c_SIM_MasterCard[10] = {'4', '9', 'A', 'E', 'A', '3', 'C', '2', '8', '6'}; // Thẻ mô ph�?ng master
+// const char Ar1_c_SIM_Card1[10] = {'1', 'A', 'E', '1', '8', '0', '1', '7', '6', 'C'}; // Thẻ mô ph�?ng slave 1
+
+// Khởi tạo Keypad và keymap
  KEYPAD_Name KeyPad;
  char KEYMAP[NUMROWS][NUMCOLS] = {
  {'1','2','3','A'},
@@ -70,17 +83,23 @@ unsigned char Ar1_uc_UID_InputBuffer[8];
  {'7','8','9','C'},
  {'*','0','#','D'}
  };
-// Biến lưu key đọc được
-unsigned char u8_KEYPAD_key;
+
+// Khởi tạo mật khẩu 
+char c_KEYPAD_Key;
+char c_KEYPAD_InputPassword[7];
+const char c_KEYPAD_Password[7] = {'1','2','3','4','5','6'};
+uint8_t Input_Index = 0; // Chỉ số của phím hiện tại
+uint8_t Wrong_Count = 0; // Số lần sai mật khẩu
+uint8_t Warning_Level = 0; // Mức cảnh báo
+const char Warning_Level1[] = "Canh bao muc 1!";
+const char Warning_Level2[] = "Canh bao muc 2!";
 // Khai báo LCD
 CLCD_I2C_Name LCD;
-char LCD_str[100];
+char LCD_str[20];
 
-// 
-unsigned char password[6] = {'1','2','3','A','B','C'};
-unsigned char input_pass[6];
-uint8_t inputIndex = 0; // Chỉ số của phím hiện tại
-uint8_t status;
+// Các biến trạng thái
+bool RFID_Active = false;
+bool Door_Status = false;
 
 /* USER CODE END PV */
 
@@ -97,116 +116,240 @@ static void MX_SPI1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void RC522_UID_Check(void)
+// Hàm kiểm tra thẻ từ
+void RC522_RFID_Check(void)
 {
-  // ========================================= Mô phỏng trên Proteus ========================================= //
-  // status = HAL_UART_Receive(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
+  // ========================================= Mô ph�?ng trên Proteus ========================================= //
+  // uint8_t status = HAL_UART_Receive(&huart2, Ar1_c_SIM_InputCard, 10, 0xffff);
   // while (status != HAL_OK)
   // {
   //   // Chờ chuỗi ghi vào buffer
   // }
   // HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
-  // HAL_UART_Transmit(&huart2, Ar1_uc_UID_InputBuffer, 8, 0xffff);
-  // if (strcmp(Ar1_uc_UID_Buffer, Ar1_uc_UID_InputBuffer) == 0)
+  // HAL_UART_Transmit(&huart2, Ar1_c_SIM_InputCard, 10, 0xffff);
+
+  // if (strcmp(Ar1_c_SIM_MasterCard, Ar1_c_SIM_InputCard) == 0)
   // {
-  //   CLCD_I2C_SetCursor(&LCD, 0, 1);
-	// 	CLCD_I2C_WriteString(&LCD,"The tu Oke!");
+  //   RFID_Active = true;
+  //   LCD_Show(LCD_CORRECTCARD);
+  //   HAL_Delay(1000);
+  //   LCD_Show(LCD_PASSHOME);
+  // }
+  // else if(strcmp(Ar1_c_SIM_InputCard, Ar1_c_SIM_Card1) == 0)
+  // {
+  //   RFID_Active = true;
+  //   LCD_Show(LCD_CORRECTCARD);
+  //   HAL_Delay(1000);
+  //   LCD_Show(LCD_PASSHOME);
   // }
   // else
   // {
-  //   CLCD_I2C_SetCursor(&LCD, 0, 1);
-	// 	CLCD_I2C_WriteString(&LCD,"The tu sai!");
+  //   RFID_Active = false;
+  //   LCD_Show(LCD_WRONGCARD);
+  //   HAL_Delay(1000);
+  //   LCD_Show(LCD_RFIDHOME);
   // }
+
 
   // ========================================= Chạy trên phần cứng ========================================= //
   if(!MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType))
     {
-      if(!MFRC522_Anticoll(&mfrc522, str))
+      if(!MFRC522_Anticoll(&mfrc522, Ar1_u8_RFID_InputCard))
       {
-        sprintf(LCD_str, "ID: 0x%02X%02X%02X%02X%02X", str[0], str[1], str[2], str[3], str[4]);
-        CLCD_I2C_SetCursor(&LCD, 0, 1);
-        CLCD_I2C_WriteString(&LCD, LCD_str);
-        HAL_Delay(1000);
-        CLCD_I2C_Clear(&LCD);
+        // sprintf(LCD_str, "ID: 0x%02X%02X%02X%02X%02X", Ar1_u8_RFID_InputCard[0], Ar1_u8_RFID_InputCard[1], Ar1_u8_RFID_InputCard[2], Ar1_u8_RFID_InputCard[3], Ar1_u8_RFID_InputCard[4]);
+        // CLCD_I2C_SetCursor(&LCD, 0, 1);
+        // CLCD_I2C_WriteString(&LCD, LCD_str);
+        // HAL_Delay(1000);
+        // CLCD_I2C_Clear(&LCD);
 
-        if( str[0] == Ar1_u8_UID_Buffer1[0]&&
-            str[1] == Ar1_u8_UID_Buffer1[1]&&
-            str[2] == Ar1_u8_UID_Buffer1[2]&&
-            str[3] == Ar1_u8_UID_Buffer1[3]&&
-            str[4] == Ar1_u8_UID_Buffer1[4])
-            {
-              CLCD_I2C_SetCursor(&LCD, 0, 1);
-              CLCD_I2C_WriteString(&LCD, "The 1");
-            }
+        if( Ar1_u8_RFID_InputCard[0] == Ar1_u8_RFID_MasterCard[0]&&
+            Ar1_u8_RFID_InputCard[1] == Ar1_u8_RFID_MasterCard[1]&&
+            Ar1_u8_RFID_InputCard[2] == Ar1_u8_RFID_MasterCard[2]&&
+            Ar1_u8_RFID_InputCard[3] == Ar1_u8_RFID_MasterCard[3]&&
+            Ar1_u8_RFID_InputCard[4] == Ar1_u8_RFID_MasterCard[4])
+        {
+          RFID_Active = true;
+          LCD_Show(LCD_CORRECTCARD);
+          HAL_Delay(1000);
+          LCD_Show(LCD_PASSHOME);
+        }
 
-        if( str[0] == Ar1_u8_UID_Buffer2[0]&&
-            str[1] == Ar1_u8_UID_Buffer2[1]&&
-            str[2] == Ar1_u8_UID_Buffer2[2]&&
-            str[3] == Ar1_u8_UID_Buffer2[3]&&
-            str[4] == Ar1_u8_UID_Buffer2[4])
-            {
-              CLCD_I2C_SetCursor(&LCD, 0, 1);
-              CLCD_I2C_WriteString(&LCD, "The 2");
-            }
+        else if(  Ar1_u8_RFID_InputCard[0] == Ar1_u8_RFID_Card1[0]&&
+                  Ar1_u8_RFID_InputCard[1] == Ar1_u8_RFID_Card1[1]&&
+                  Ar1_u8_RFID_InputCard[2] == Ar1_u8_RFID_Card1[2]&&
+                  Ar1_u8_RFID_InputCard[3] == Ar1_u8_RFID_Card1[3]&&
+                  Ar1_u8_RFID_InputCard[4] == Ar1_u8_RFID_Card1[4])
+        {
+          RFID_Active = true;
+          LCD_Show(LCD_CORRECTCARD);
+          HAL_Delay(1000);
+          LCD_Show(LCD_PASSHOME);
+        }
+        else
+        {
+          RFID_Active = false;
+          LCD_Show(LCD_WRONGCARD);
+          HAL_Delay(1000);
+          LCD_Show(LCD_RFIDHOME);
+        }
       }
     }
 }
+
+// Hàm kiểm tra mật khẩu
 void KEYPAD_CheckPassword(void)
 {
-  u8_KEYPAD_key = KEYPAD4X4_Readkey(&KeyPad);
-	  	  HAL_Delay(20);
-	      //RC522_UID_Check();
-	      if (u8_KEYPAD_key != 0)
+  c_KEYPAD_Key = KEYPAD4X4_Readkey(&KeyPad);
+	HAL_Delay(10);
+	if (RFID_Active == true && Door_Status == false) 
+	{
+    if(c_KEYPAD_Key != 0)
+    {
+      c_KEYPAD_InputPassword[Input_Index] = c_KEYPAD_Key;
+	    Input_Index++;
+      LCD_Show(LCD_SHOWPASS);
+
+	    if (c_KEYPAD_Key == 'D')
+	    {
+	      Input_Index = 0;
+        LCD_Show(LCD_PASSHOME);
+	    }
+	    if (Input_Index == 6) // Kiểm tra nếu đã nhập đủ 6 phím
+	    {
+	      if(strcmp(c_KEYPAD_InputPassword, c_KEYPAD_Password) == 0)
 	      {
-	        CLCD_I2C_SetCursor(&LCD, inputIndex, 1);
-	      	CLCD_I2C_WriteChar(&LCD, u8_KEYPAD_key);
-	        if (u8_KEYPAD_key == 'D')
-	        {
-	      	inputIndex = 0;
-	        	CLCD_I2C_Clear(&LCD);
-	        	CLCD_I2C_SetCursor(&LCD, 0, 0);
-	        	CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
-	        	CLCD_I2C_SetCursor(&LCD, 0, 1);
-	        }
-	        else if (u8_KEYPAD_key == '*')
-	        {
-	      	  inputIndex = 0;
-	      	  if(strcmp(input_pass, password) == 0)
-	      	  {
-	      		 CLCD_I2C_SetCursor(&LCD, 0, 1);
-	      		 CLCD_I2C_WriteString(&LCD, "Mat khau dung!");
-	      		 HAL_Delay(2000);
-	  		     CLCD_I2C_Clear(&LCD);
-	  		     CLCD_I2C_SetCursor(&LCD, 0, 0);
-	  		     CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
-	  		     CLCD_I2C_SetCursor(&LCD, 0, 1);
-	      	  }
-	      	  else
-	      	  {
-	      		 CLCD_I2C_SetCursor(&LCD, 0, 1);
-	      		 CLCD_I2C_WriteString(&LCD, "Mat khau sai!");
-	      		 HAL_Delay(2000);
-	  		     CLCD_I2C_Clear(&LCD);
-	  		     CLCD_I2C_SetCursor(&LCD, 0, 0);
-	  		     CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
-	  		     CLCD_I2C_SetCursor(&LCD, 0, 1);
-	      	  }
-	        }
-	        else
-	        {
-	      	  input_pass[inputIndex] = u8_KEYPAD_key;
-	      	  inputIndex++;
-	        }
-	        //CLCD_I2C_WriteString(&LCD1, input_pass);
+          Door_Status = true;
+          Door_Control();
+
+          Wrong_Count = 0;
+          Warning_Level = 0;
+
+          LCD_Show(LCD_CORRECTPASS);
+          HAL_Delay(1000);
+          LCD_Show(LCD_PASSHOME);
+
+          HAL_Delay(2000);
+          Door_Status = false;
+          Door_Control();
 	      }
+	      else
+	      {
+          Wrong_Count++;
 
+	        LCD_Show(LCD_WRONGPASS);
+	        HAL_Delay(1000);
+	  	    LCD_Show(LCD_PASSHOME);
 
-	      //HAL_UART_Transmit(&huart2, &u8_KEYPAD_key, sizeof(u8_KEYPAD_key), 100);
-	  	  HAL_Delay(50);
+          if(Wrong_Count == 3)
+          {
+            Wrong_Count = 0;
+            Warning_Level++;
+
+            LCD_Show(LCD_WARNING);
+            HAL_Delay(5000);
+            switch (Warning_Level) // Kiểm tra mức cảnh báo
+            {
+              case 1:
+                Buzzer_On();
+                HAL_Delay(3000);
+                Buzzer_Off();
+                LCD_Show(LCD_PASSHOME);
+                break;
+              case 2:
+                HAL_UART_Transmit(&huart2, Warning_Level1, sizeof(Warning_Level1), 0xff);
+                Buzzer_On();
+                HAL_Delay(5000);
+                Buzzer_Off();
+                LCD_Show(LCD_PASSHOME);
+                break;
+              case 3:
+                HAL_UART_Transmit(&huart2, Warning_Level2, sizeof(Warning_Level2), 0xff);
+                Buzzer_On();
+                HAL_Delay(7000);
+                Buzzer_Off();
+                LCD_Show(LCD_PASSHOME);
+                Warning_Level = 0;
+                break;
+            }
+          }
+	      }
+        Input_Index = 0;
+	    }
+    }
+  }
+
+  else
+  {
+    Door_Status = false;
+  }
 }
-void LCD_Show(void)
-{
 
+// Hàm hiển thị lên LCD
+void LCD_Show(unsigned int Show_Type)
+{
+  switch (Show_Type)
+  {
+    case LCD_RFIDHOME:
+      CLCD_I2C_Clear(&LCD);
+      CLCD_I2C_SetCursor(&LCD, 0, 0);
+	    CLCD_I2C_WriteString(&LCD,"Nhap the tu:");
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+      break;
+    case LCD_PASSHOME:
+      CLCD_I2C_Clear(&LCD);
+      CLCD_I2C_SetCursor(&LCD, 0, 0);
+	    CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+      break;
+    case LCD_CORRECTCARD:
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+      CLCD_I2C_WriteString(&LCD, "The hop le!");
+      break;
+    case LCD_WRONGCARD:
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+      CLCD_I2C_WriteString(&LCD, "The sai!");
+      break;
+    case LCD_SHOWPASS:
+      CLCD_I2C_SetCursor(&LCD, Input_Index, 1);
+	    CLCD_I2C_WriteChar(&LCD, '*');
+      break;
+    case LCD_CORRECTPASS:
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+	    CLCD_I2C_WriteString(&LCD, "Mat khau dung!");
+      break;
+    case LCD_WRONGPASS:
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+	    CLCD_I2C_WriteString(&LCD, "Mat khau sai!");
+      break;
+    case LCD_WARNING:
+      CLCD_I2C_Clear(&LCD);
+      CLCD_I2C_SetCursor(&LCD, 0, 0);
+	    CLCD_I2C_WriteString(&LCD,"Sai 3 lan!");
+      CLCD_I2C_SetCursor(&LCD, 0, 1);
+	    CLCD_I2C_WriteString(&LCD, "Khoa he thong!");
+  }
+}
+
+void Buzzer_On(void)
+{
+  HAL_GPIO_WritePin(BUZZZER_GPIO_Port, BUZZZER_Pin, GPIO_PIN_SET);
+}
+
+void Buzzer_Off(void)
+{
+  HAL_GPIO_WritePin(BUZZZER_GPIO_Port, BUZZZER_Pin, GPIO_PIN_RESET);
+}
+
+void Door_Control(void)
+{
+  if(Door_Status == true)
+  {
+    HAL_GPIO_WritePin(DOOR_GPIO_Port, DOOR_Pin, GPIO_PIN_SET);
+  }
+  else
+  {
+    HAL_GPIO_WritePin(DOOR_GPIO_Port, DOOR_Pin, GPIO_PIN_RESET);
+  }
 }
 /* USER CODE END 0 */
 
@@ -257,21 +400,24 @@ int main(void)
                            ROW3_GPIO_Port, ROW3_Pin,
                            ROW4_GPIO_Port, ROW4_Pin);
   // Khởi tạo LCD
-  // Với mô phỏng Proteus -> địa chỉ 0x40
+  // Với mô ph�?ng Proteus -> địa chỉ 0x40
   // Với phần cứng thực tế -> địa chỉ 0x4E
    CLCD_I2C_Init(&LCD,&hi2c1,0x4E,16,2);
 
-  // Test hiển thị
+  // Hiển thị lên LCD
   CLCD_I2C_SetCursor(&LCD, 0, 0);
-  CLCD_I2C_WriteString(&LCD,"Nhap mat khau:");
+  CLCD_I2C_WriteString(&LCD,"Nhap the tu:");
   CLCD_I2C_SetCursor(&LCD, 0, 1);
+  //RFID_Active = true;
+  //RC522_RFID_Check(); // Dùng cho mô ph�?ng
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  RC522_UID_Check();
+    RC522_RFID_Check();
+    KEYPAD_CheckPassword();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -476,16 +622,26 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(COL4_GPIO_Port, COL4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, DOOR_Pin|BUZZZER_Pin|COL3_Pin|COL1_Pin
+                          |COL2_Pin|SPI1_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, COL3_Pin|COL1_Pin|COL2_Pin|SPI1_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(COL4_GPIO_Port, COL4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : DOOR_Pin BUZZZER_Pin COL3_Pin COL1_Pin
+                           COL2_Pin SPI1_CS_Pin */
+  GPIO_InitStruct.Pin = DOOR_Pin|BUZZZER_Pin|COL3_Pin|COL1_Pin
+                          |COL2_Pin|SPI1_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ROW4_Pin */
   GPIO_InitStruct.Pin = ROW4_Pin;
@@ -511,13 +667,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(COL4_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : COL3_Pin COL1_Pin COL2_Pin SPI1_CS_Pin */
-  GPIO_InitStruct.Pin = COL3_Pin|COL1_Pin|COL2_Pin|SPI1_CS_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
