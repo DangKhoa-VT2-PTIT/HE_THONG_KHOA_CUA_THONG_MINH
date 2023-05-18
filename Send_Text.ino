@@ -47,8 +47,8 @@
 
 #include <ESP_Mail_Client.h>
 
-#define WIFI_SSID "<ssid>"
-#define WIFI_PASSWORD "<password>"
+#define WIFI_SSID "<ssid>" //Nhap ten wifi
+#define WIFI_PASSWORD "<password>" //Nhap mat khau lcd
 
 /** For Gmail, the app password will be used for log in
  *  Check out https://github.com/mobizt/ESP-Mail-Client#gmail-smtp-and-imap-required-app-passwords-to-sign-in
@@ -65,17 +65,17 @@
 
 /** The smtp port e.g.
  * 25  or esp_mail_smtp_port_25
- * 465 or esp_mail_smtp_port_465
+ * 465 or esp_mail_smtp_port_465 //Su dung cai nay
  * 587 or esp_mail_smtp_port_587
  */
 #define SMTP_PORT esp_mail_smtp_port_587 // port 465 is not available for Outlook.com
 
 /* The log in credentials */
-#define AUTHOR_EMAIL "<email>"
-#define AUTHOR_PASSWORD "<password>"
+#define AUTHOR_EMAIL "<email>" //Nhap email nguoi gui
+#define AUTHOR_PASSWORD "<password>" //Nhap pass email nguoi
 
 /* Recipient email address */
-#define RECIPIENT_EMAIL "<recipient email here>"
+#define RECIPIENT_EMAIL "<recipient email here>" //Nhap email nguoi nhan
 
 /* Declare the global used SMTPSession object for SMTP transport */
 SMTPSession smtp;
@@ -166,7 +166,7 @@ void setup()
    *
    * Assign any text to this option may cause the connection rejection.
    */
-  config.login.user_domain = F("mydomain.net");
+  config.login.user_domain = F("mydomain.net"); //Neu khong co domain web rieeng thi xoa mydomain.net di
 
   /* Set the NTP config time */
   config.time.ntp_server = F("pool.ntp.org,time.nist.gov");
@@ -206,10 +206,10 @@ void setup()
   /* Set the message headers */
   message.sender.name = F("ESP Mail");
   message.sender.email = AUTHOR_EMAIL;
-  message.subject = F("Test sending plain text Email");
-  message.addRecipient(F("Someone"), RECIPIENT_EMAIL);
+  message.subject = F("Test sending plain text Email"); //Tieu de gui
+  message.addRecipient(F("Someone"), RECIPIENT_EMAIL); 
 
-  String textMsg = "This is simple plain text message";
+  String textMsg = "This is simple plain text message"; //Van ban gui di
   message.text.content = textMsg;
 
   /** If the message to send is a large string, to reduce the memory used from internal copying  while sending,
