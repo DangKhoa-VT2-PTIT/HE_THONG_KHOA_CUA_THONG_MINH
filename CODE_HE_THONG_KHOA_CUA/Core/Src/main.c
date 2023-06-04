@@ -117,6 +117,22 @@ static void MX_SPI1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// Hàm ngắt ngoài đóng mở cửa từ bên trong nhà
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(GPIO_Pin);
+  /* NOTE: This function Should not be modified, when the callback is needed,
+           the HAL_GPIO_EXTI_Callback could be implemented in the user file
+   */
+  if(GPIO_Pin == BTNDOOR_Pin)
+  {
+    Door_Status = true;
+    HAL_Delay(2000);
+    Door_Control();
+    Door_Status = false;
+  }
+}
 // Hàm kiểm tra thẻ từ
 void RC522_RFID_Check(void)
 {
@@ -124,7 +140,7 @@ void RC522_RFID_Check(void)
   // uint8_t status = HAL_UART_Receive(&huart2, Ar1_c_SIM_InputCard, 10, 0xffff);
   // while (status != HAL_OK)
   // {
-  //   // Chờ chuỗi ghi vào buffer
+  //   // Ch�? chuỗi ghi vào buffer
   // }
   // HAL_UART_Transmit(&huart2, "\n\r", 2, 0xffff);
   // HAL_UART_Transmit(&huart2, Ar1_c_SIM_InputCard, 10, 0xffff);
@@ -157,6 +173,7 @@ void RC522_RFID_Check(void)
     {
       if(!MFRC522_Anticoll(&mfrc522, Ar1_u8_RFID_InputCard))
       {
+        // Hiển thị ID thẻ từ thông qua UART hoặc LCD
         // sprintf(LCD_str, "ID: 0x%02X%02X%02X%02X%02X", Ar1_u8_RFID_InputCard[0], Ar1_u8_RFID_InputCard[1], Ar1_u8_RFID_InputCard[2], Ar1_u8_RFID_InputCard[3], Ar1_u8_RFID_InputCard[4]);
         // CLCD_I2C_SetCursor(&LCD, 0, 1);
         // CLCD_I2C_WriteString(&LCD, LCD_str);
@@ -201,7 +218,7 @@ void RC522_RFID_Check(void)
 void KEYPAD_CheckPassword(void)
 {
   c_KEYPAD_Key = KEYPAD4X4_Readkey(&KeyPad);
-	HAL_Delay(10);
+  HAL_Delay(10);
 	if (RFID_Active == true && Door_Status == false) 
 	{
     if(c_KEYPAD_Key != 0)
@@ -653,11 +670,11 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(COL4_GPIO_Port, COL4_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
+  /*Configure GPIO pin : BTNDOOR_Pin */
+  GPIO_InitStruct.Pin = BTNDOOR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(BTNDOOR_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : DOOR_Pin BUZZZER_Pin COL3_Pin COL1_Pin
                            COL2_Pin SPI1_CS_Pin */
@@ -692,6 +709,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(COL4_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 1);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
