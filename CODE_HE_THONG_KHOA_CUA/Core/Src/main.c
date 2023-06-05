@@ -128,9 +128,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   if(GPIO_Pin == BTNDOOR_Pin)
   {
     Door_Status = true;
-    HAL_Delay(2000);
     Door_Control();
+    HAL_Delay(3000);
     Door_Status = false;
+    Door_Control();
   }
 }
 // Hàm kiểm tra thẻ từ
@@ -273,7 +274,7 @@ void KEYPAD_CheckPassword(void)
                 Buzzer_Off();
                 LCD_Show(LCD_PASSHOME);
                 break;
-                case 2:
+              case 2:
                 HAL_UART_Transmit(&huart6, Warning_Level1, sizeof(Warning_Level1), 0xff);
                 Buzzer_On();
                 HAL_Delay(5000);
@@ -312,10 +313,10 @@ void KEYPAD_CheckPassword(void)
     }
   }
 
-  else
-  {
-    Door_Status = false;
-  }
+  // else
+  // {
+  //   Door_Status = false;
+  // }
 }
 
 // Hàm hiển thị lên LCD
@@ -709,7 +710,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(COL4_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 1);
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
