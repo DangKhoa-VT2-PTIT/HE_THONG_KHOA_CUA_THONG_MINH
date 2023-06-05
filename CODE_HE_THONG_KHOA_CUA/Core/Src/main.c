@@ -219,13 +219,8 @@ void KEYPAD_CheckPassword(void)
 {
   c_KEYPAD_Key = KEYPAD4X4_Readkey(&KeyPad);
   HAL_Delay(10);
-<<<<<<< HEAD
-	if (RFID_Active == true && Door_Status == false) 
-	{
-=======
   if (RFID_Active == true && Door_Status == false) 
   {
->>>>>>> eb04cf64a4af7736f07ee60bc274d3a2bef68c66
     if(c_KEYPAD_Key != 0)
     {
       c_KEYPAD_InputPassword[Input_Index] = c_KEYPAD_Key;
@@ -238,9 +233,9 @@ void KEYPAD_CheckPassword(void)
       }
       if (Input_Index == 6) // Kiểm tra nếu đã nhập đủ 6 phím
       {
-         Input_Index = 0;
-	 if(strcmp(c_KEYPAD_InputPassword, c_KEYPAD_Password) == 0)
-	 {
+        Input_Index = 0;
+	      if(strcmp(c_KEYPAD_InputPassword, c_KEYPAD_Password) == 0)
+	      {
             Door_Status = true;
             Door_Control();
 
@@ -254,68 +249,69 @@ void KEYPAD_CheckPassword(void)
             HAL_Delay(2000);
             Door_Status = false;
             Door_Control();
-	 }
-	 else
-	 {
-            Wrong_Count++;
+	      }
+	      else
+	      {
+          Wrong_Count++;
 
-	    LCD_Show(LCD_WRONGPASS);
-	    HAL_Delay(1000);
-	    LCD_Show(LCD_PASSHOME);
+	        LCD_Show(LCD_WRONGPASS);
+	        HAL_Delay(1000);
+	        LCD_Show(LCD_PASSHOME);
 
-            if(Wrong_Count == 3)
+          if(Wrong_Count == 3)
+          {
+            Wrong_Count = 0;
+            Warning_Level += 1;
+
+            LCD_Show(LCD_WARNING);
+            HAL_Delay(2000);
+            switch (Warning_Level) // Kiểm tra mức cảnh báo
             {
-              Wrong_Count = 0;
-              Warning_Level += 1;
-
-              LCD_Show(LCD_WARNING);
-              HAL_Delay(2000);
-              switch (Warning_Level) // Kiểm tra mức cảnh báo
-              {
-                case 1:
-                  Buzzer_On();
-                  HAL_Delay(3000);
-                  Buzzer_Off();
-                  LCD_Show(LCD_PASSHOME);
-                  break;
+              case 1:
+                Buzzer_On();
+                HAL_Delay(3000);
+                Buzzer_Off();
+                LCD_Show(LCD_PASSHOME);
+                break;
                 case 2:
-                  HAL_UART_Transmit(&huart6, Warning_Level1, sizeof(Warning_Level1), 0xff);
-                  Buzzer_On();
-                  HAL_Delay(5000);
-                  Buzzer_Off();
+                HAL_UART_Transmit(&huart6, Warning_Level1, sizeof(Warning_Level1), 0xff);
+                Buzzer_On();
+                HAL_Delay(5000);
+                Buzzer_Off();
+                LCD_Show(LCD_PASSHOME);
+                break;
+              case 3:
+                HAL_UART_Transmit(&huart6, Warning_Level2, sizeof(Warning_Level2), 0xff);
+                Buzzer_On();
+                HAL_Delay(7000);
+                Buzzer_Off();
+                LCD_Show(LCD_BLOCK);
+                while(MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType) == MI_ERR) {}
+                if(!MFRC522_Anticoll(&mfrc522, Ar1_u8_RFID_InputCard))
+                {
+                  while(Ar1_u8_RFID_InputCard[0] != Ar1_u8_RFID_MasterCard[0]||
+                        Ar1_u8_RFID_InputCard[1] != Ar1_u8_RFID_MasterCard[1]||
+                        Ar1_u8_RFID_InputCard[2] != Ar1_u8_RFID_MasterCard[2]||
+                        Ar1_u8_RFID_InputCard[3] != Ar1_u8_RFID_MasterCard[3]||
+                        Ar1_u8_RFID_InputCard[4] != Ar1_u8_RFID_MasterCard[4])
+                      {
+                        LCD_Show(LCD_WRONGCARD);
+                        MFRC522_Check(&mfrc522, Ar1_u8_RFID_InputCard);
+                      }
+                  RFID_Active = true;
+                  LCD_Show(LCD_CORRECTCARD);
+                  HAL_Delay(1000);
                   LCD_Show(LCD_PASSHOME);
-                  break;
-                case 3:
-                  HAL_UART_Transmit(&huart6, Warning_Level2, sizeof(Warning_Level2), 0xff);
-                  Buzzer_On();
-                  HAL_Delay(7000);
-                  Buzzer_Off();
-                  LCD_Show(LCD_BLOCK);
-                  while(MFRC522_Request(&mfrc522, PICC_REQIDL, &RC522_TagType) == MI_ERR) {}
-                  if(!MFRC522_Anticoll(&mfrc522, Ar1_u8_RFID_InputCard))
-                  {
-                    while(Ar1_u8_RFID_InputCard[0] != Ar1_u8_RFID_MasterCard[0]||
-                          Ar1_u8_RFID_InputCard[1] != Ar1_u8_RFID_MasterCard[1]||
-                          Ar1_u8_RFID_InputCard[2] != Ar1_u8_RFID_MasterCard[2]||
-                          Ar1_u8_RFID_InputCard[3] != Ar1_u8_RFID_MasterCard[3]||
-                          Ar1_u8_RFID_InputCard[4] != Ar1_u8_RFID_MasterCard[4])
-                    {
-                       LCD_Show(LCD_WRONGCARD);
-                       MFRC522_Check(&mfrc522, Ar1_u8_RFID_InputCard);
-                    }
-                    RFID_Active = true;
-                    LCD_Show(LCD_CORRECTCARD);
-                    HAL_Delay(1000);
-                    LCD_Show(LCD_PASSHOME);
-                    Warning_Level = 0;
-                  }
-                  break;
-              } 
-            }
-	  }
-	}
-     }
+                  Warning_Level = 0;
+                }
+              break;
+            } 
+          }
+	      }
+	    }
+    }
   }
+
   else
   {
     Door_Status = false;
