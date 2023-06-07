@@ -68,7 +68,7 @@ UART_HandleTypeDef huart6;
 MFRC522_Name mfrc522;
 uint8_t Ar1_u8_RFID_InputCard[MFRC522_MAX_LEN];
 const uint8_t Ar1_u8_RFID_MasterCard[MFRC522_MAX_LEN] = {0x49, 0xAE, 0XA3, 0XC2, 0X86}; // Thẻ master
-const uint8_t Ar1_u8_RFID_Card1[MFRC522_MAX_LEN] = {0x1A, 0xE1, 0X80, 0X17, 0X61}; // Thẻ slave 1
+const uint8_t Ar1_u8_RFID_Card1[MFRC522_MAX_LEN] = {0x1A, 0xE1, 0X80, 0X17, 0X6C}; // Thẻ slave 1
 uint8_t RC522_TagType;
 
 // Mô ph�?ng thẻ từ
@@ -92,8 +92,8 @@ const char c_KEYPAD_Password[7] = {'1','2','3','4','5','6'};
 uint8_t Input_Index = 0; // Chỉ số của phím hiện tại
 uint8_t Wrong_Count = 0; // Số lần sai mật khẩu
 uint8_t Warning_Level = 0; // Mức cảnh báo
-const char Warning_Level1[] = "Canh bao muc 1!";
-const char Warning_Level2[] = "Canh bao muc 2!";
+const char Warning_Level1[] = "Truy cap trai phep! Canh bao muc 1!";
+const char Warning_Level2[] = "Truy cap trai phep! Canh bao muc 2!";
 // Khai báo LCD
 CLCD_I2C_Name LCD;
 char LCD_str[20];
@@ -244,12 +244,13 @@ void KEYPAD_CheckPassword(void)
             Warning_Level = 0;
 
             LCD_Show(LCD_CORRECTPASS);
-            HAL_Delay(1000);
-            LCD_Show(LCD_PASSHOME);
+            HAL_Delay(3000);
 
-            HAL_Delay(2000);
             Door_Status = false;
+            RFID_Active = false;
+
             Door_Control();
+            LCD_Show(LCD_RFIDHOME);
 	      }
 	      else
 	      {
