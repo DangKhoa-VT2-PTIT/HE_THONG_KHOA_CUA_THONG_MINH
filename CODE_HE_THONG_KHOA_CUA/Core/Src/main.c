@@ -9,12 +9,7 @@
   * Code style:
   * https://khuenguyencreator.com/cach-viet-clean-code-trong-lap-trinh-c/
   * 
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * link github: https://github.com/DangKhoa-VT2-PTIT/HE_THONG_KHOA_CUA_THONG_MINH.git
   *
   ******************************************************************************
   */
